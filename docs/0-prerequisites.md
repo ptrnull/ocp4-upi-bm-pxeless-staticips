@@ -63,6 +63,21 @@ systemctl restart NetworkManager
 # reboot
 ```
 
+Configure your bootstrap/dns server
+
+To configure your bootstrap/dns server with the data provided you can use the following commands:
+```
+# echo "The network interface to configure in this example is eno2 and will act as BOOTSTRAP and DNS SERVER"
+
+# nmcli con mod eno2 ipv4.method manual
+# nmcli con mod eno2 ipv4.addresses "${BOOTSTRAP_IP}/24, ${MY_IP}/24"
+# nmcli con mod eno2 ipv4.gw4 ${GATEWAY}
+# nmcli con up eno2 iface eno2
+# nmcli con mod 'System eno1' +ipv4.dns "${DNS}"
+# systemctl restart NetworkManager
+
+```
+
 Switch to the 'ocp' user created before:
 
 ```
